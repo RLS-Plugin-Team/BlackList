@@ -1,0 +1,12 @@
+---
+name: BlackList
+main: BlackList\main
+version: 1.0.0
+api: 3.0.0
+author: narapon
+description: ブラックリストのシステムを追加します
+commands:
+  black:
+    description: BlackList
+    usage: /black
+...

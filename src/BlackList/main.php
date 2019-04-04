@@ -54,7 +54,7 @@ class main extends PluginBase implements Listener{
         if($this->blacklist->exists($name)){
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($players->isOp() || $this->permission->exists($players->getName())){
-                   $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーを去りました");
+                   $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーを退出しました");
                 }
             }
             return true;

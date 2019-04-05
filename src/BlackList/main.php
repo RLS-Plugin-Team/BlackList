@@ -23,6 +23,8 @@ class main extends PluginBase implements Listener{
         $this->blacklist = new Config($this->getDataFolder() . "blacklist.yml", Config::YAML);
         $this->blackreason = new Config($this->getDataFolder() . "blackreason.yml", Config::YAML);
         $this->blacktime = new Config($this->getDataFolder() . "blacktime.yml", Config::YAML);
+	$this->blacklasttime = new Config($this->getDataFolder() . "blacklasttime.yml", Config::YAML);
+	$this->blackip = new Config($this->getDataFolder() . "blackip.yml", Config::YAML);
         $this->permission = new Config($this->getDataFolder() . "permission.yml", Config::YAML);
         $this->getServer()->getPluginManager()->registerEvents($this,$this); 
     } 
@@ -34,6 +36,7 @@ class main extends PluginBase implements Listener{
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($players->isOp() || $this->permission->exists($players->getName())){
                    $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーに参加しました");
+		   $this->blackip->set($name,$player->getAddress());
                 }
             }
             return true;
@@ -51,10 +54,12 @@ class main extends PluginBase implements Listener{
     public function onPlayerQuit(PlayerQuitEvent $event){
         $player = $event->getPlayer();
         $name = $player->getName();
+	$time = date("Y年n月j日G時i分");
         if($this->blacklist->exists($name)){
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($players->isOp() || $this->permission->exists($players->getName())){
                    $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーを退出しました");
+		   $this->blacklasttime->set($name,$time);
                 }
             }
             return true;
@@ -127,7 +132,18 @@ class main extends PluginBase implements Listener{
 	                    $sender->sendMessage("ブラック追加者 : {$adduser}");
 	                    $sender->sendMessage("ブラック理由 : {$reason}");
 	                    $sender->sendMessage("ブラック時刻 : {$time}");
-	                    
+	                    if($this->blacklasttime->exists($args[1])){
+				   $lasttime = $this->blacklasttime->get($args[1]);
+				   $sender->sendMessage("退出時刻 : {$lasttime}");
+			    }else{
+				   $sender->sendMessage("退出時刻 : データ不足");
+			    }
+			    if($this->blackip->exists($args[1])){
+				   $ip = $this->blackip->get($args[1]);
+				   $sender->sendMessage("ipアドレス : {$ip}");
+			    }else{
+				   $sender->sendMessage("ipアドレス : データ不足");
+			    }
 	                }
 	                break;
 	                

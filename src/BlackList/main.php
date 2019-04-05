@@ -37,7 +37,7 @@ class main extends PluginBase implements Listener{
 	    $this->blackip->save();
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($players->isOp() || $this->permission->exists($players->getName())){
-                   $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーに参加しました");  
+                   $players->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーに参加しました。");  
                 }
             }
             return true;
@@ -45,7 +45,7 @@ class main extends PluginBase implements Listener{
         if($player->isOp() || $this->permission->exists($player->getName())){
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($this->blacklist->exists($players->getName())){
-                    $player->sendMessage("§l§6<staff>§fブラックリストの{$players->getName()}がオンラインです");
+                    $player->sendMessage("§l§6<staff>§fブラックリストの §e{$players->getName()} がオンラインです。");
                 }
             }
             return true;
@@ -61,7 +61,7 @@ class main extends PluginBase implements Listener{
 	    $this->blacklasttime->save();
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($players->isOp() || $this->permission->exists($players->getName())){
-                   $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーを退出しました");
+                   $players->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーを退出しました。");
                 }
             }
             return true;
@@ -85,7 +85,7 @@ class main extends PluginBase implements Listener{
 	                if(!isset($args[1]) || !isset($args[2])){
 	                    $sender->sendMessage("/black add <name> <reason>");
 	                }elseif($this->blacklist->exists($args[1])){
-	                    $sender->sendMessage("§b【運営】 >>>§c既に{$args[1]}はブラックリストに追加されています");
+	                    $sender->sendMessage("§b【運営】 >>> §cすでに §e{$args[1]} §cはブラックリストに追加されています。");
 	                }else{
 	                    $this->blacklist->set($args[1],$sender->getName());
 	                    $this->blacklist->save();
@@ -94,8 +94,8 @@ class main extends PluginBase implements Listener{
 	                    $time = date("Y年n月j日G時i分");
 	                    $this->blacktime->set($args[1],$time);
 	                    $this->blacktime->save();
-	                    $sender->sendMessage("§b【運営】 >>>§a{$args[1]}をブラックリストに追加しました");
-	                    $sender->sendMessage("§b【運営】 >>>§a理由 : {$args[2]}");
+	                    $sender->sendMessage("§b【運営】 >>> §e{$args[1]} §aをブラックリストに追加しました。");
+	                    $sender->sendMessage("§b【運営】 >>> §a理由 : {$args[2]}");
 	                }
 	                break;
 	                
@@ -103,7 +103,7 @@ class main extends PluginBase implements Listener{
 	                if(!isset($args[1])){
 	                    $sender->sendMessage("/black del <name>");
 	                }elseif(!$this->blacklist->exists($args[1])){
-	                    $sender->sendMessage("§b【運営】 >>>§c既に{$args[1]}はブラックリストに追加されていません");
+	                    $sender->sendMessage("§b【運営】 >>> §cすでに §e{$args[1]} §cはブラックリストに追加されていません。");
 	                }else{
 	                    $this->blacklist->remove($args[1]);
 	                    $this->blacklist->save();
@@ -119,7 +119,7 @@ class main extends PluginBase implements Listener{
 				   $this->blackip->remove($args[1]);
 			           $this->blackip->save();
 			    }
-	                    $sender->sendMessage("§b【運営】 >>>§a{$args[1]}をブラックリストから削除しました");
+	                    $sender->sendMessage("§b【運営】 >>> §e {$args[1]} §aをブラックリストから削除しました。");
 	                }
 	                break;
 	                
@@ -135,12 +135,12 @@ class main extends PluginBase implements Listener{
 	                if(!isset($args[1])){
 	                    $sender->sendMessage("/black check <name>");
 	                }elseif(!$this->blacklist->exists($args[1])){
-	                    $sender->sendMessage("§b【運営】 >>>§c{$args[1]}はブラックリストに追加されていません");
+	                    $sender->sendMessage("§b【運営】 >>> §e{$args[1]} §cはブラックリストに追加されていません。");
 	                }else{
 	                    $adduser = $this->blacklist->get($args[1]);
 	                    $reason = $this->blackreason->get($args[1]);
 	                    $time = $this->blacktime->get($args[1]);
-	                    $sender->sendMessage("§a{$args[1]}の詳細");
+	                    $sender->sendMessage("§e{$args[1]} §aの詳細");
 	                    $sender->sendMessage("ブラック追加者 : {$adduser}");
 	                    $sender->sendMessage("ブラック理由 : {$reason}");
 	                    $sender->sendMessage("ブラック時刻 : {$time}");
@@ -170,11 +170,11 @@ class main extends PluginBase implements Listener{
 	                       if(!isset($args[2])){
 	                           $sender->sendMessage("/black permission add <name>");
 	                       }elseif($this->permission->exists($args[2])){
-	                           $sender->sendMessage("§b【運営】 >>>§c既に{$args[2]}はブラックリストが表示されています");
+	                           $sender->sendMessage("§b【運営】 >>> §cすでに §e{$args[2]} §cはブラックリストが表示されています。");
 	                       }else{
 	                           $this->permission->set($args[2],$sender->getName());
 	                           $this->permission->save();
-	                           $sender->sendMessage("§b【運営】 >>>§a{$args[2]}にブラックリストを表示するようにしました");
+	                           $sender->sendMessage("§b【運営】 >>> §e{$args[2]} §aにブラックリストを表示するようにしました。");
 	                       }
 	                       break;
 	                       
@@ -182,11 +182,11 @@ class main extends PluginBase implements Listener{
 	                       if(!isset($args[2])){
 	                           $sender->sendMessage("/black permission del <name>");
 	                       }elseif(!$this->permission->exists($args[2])){
-	                           $sender->sendMessage("§b【運営】 >>>§c既に{$args[2]}はブラックリストが表示されません");
+	                           $sender->sendMessage("§b【運営】 >>> §cすでに{$args[2]}はブラックリストが表示されません。");
 	                       }else{
 	                           $this->permission->remove($args[2]);
 	                           $this->permission->save();
-	                           $sender->sendMessage("§b【運営】 >>>§a{$args[2]}にブロックリストを表示しないようにしました");
+	                           $sender->sendMessage("§b【運営】 >>> §e{$args[2]} §aにブロックリストを表示しないようにしました。");
 	                       }
 	                       break;
 	                       

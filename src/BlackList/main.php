@@ -33,10 +33,11 @@ class main extends PluginBase implements Listener{
         $player = $event->getPlayer();
         $name = $player->getName();
         if($this->blacklist->exists($name)){
+	    $this->blackip->set($name,$player->getAddress());
+	    $this->blackip->save();
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($players->isOp() || $this->permission->exists($players->getName())){
-                   $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーに参加しました");
-		   $this->blackip->set($name,$player->getAddress());
+                   $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーに参加しました");  
                 }
             }
             return true;
@@ -56,10 +57,11 @@ class main extends PluginBase implements Listener{
         $name = $player->getName();
 	$time = date("Y年n月j日G時i分");
         if($this->blacklist->exists($name)){
+	    $this->blacklasttime->set($name,$time);
+	    $this->blacklasttime->save();
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($players->isOp() || $this->permission->exists($players->getName())){
                    $players->sendMessage("§l§6<staff>§fブラックリストの{$name}がサーバーを退出しました");
-		   $this->blacklasttime->set($name,$time);
                 }
             }
             return true;

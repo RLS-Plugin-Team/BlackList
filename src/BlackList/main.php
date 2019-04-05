@@ -16,10 +16,10 @@ use pocketmine\event\player\PlayerQuitEvent;
 
 class main extends PluginBase implements Listener{
     
-	public function onEnable(){
-	    if(!file_exists($this->getDataFolder())){
-	        @mkdir($this->getDataFolder(), 0744, true);
-	    }
+    public function onEnable(){
+        if(!file_exists($this->getDataFolder())){
+		@mkdir($this->getDataFolder(), 0744, true);
+	}
         $this->blacklist = new Config($this->getDataFolder() . "blacklist.yml", Config::YAML);
         $this->blackreason = new Config($this->getDataFolder() . "blackreason.yml", Config::YAML);
         $this->blacktime = new Config($this->getDataFolder() . "blacktime.yml", Config::YAML);

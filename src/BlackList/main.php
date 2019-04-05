@@ -109,6 +109,16 @@ class main extends PluginBase implements Listener{
 	                    $this->blacklist->save();
 	                    $this->blackreason->remove($args[1]);
 	                    $this->blackreason->save();
+			    $this->blacktime->remove($args[1]);
+			    $this->blacktime->save();
+			    if($this->blacklasttime->exists($args[1])){
+				   $this->blacklasttime->remove($args[1]);
+			           $this->blacklasttime->save();
+			    }
+			    if($this->blackip->exists($args[1])){
+				   $this->blackip->remove($args[1]);
+			           $this->blackip->save();
+			    }
 	                    $sender->sendMessage("§b【運営】 >>>§a{$args[1]}をブラックリストから削除しました");
 	                }
 	                break;

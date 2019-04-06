@@ -2,15 +2,12 @@
 
 namespace BlackList;
 
-use pocketmine\Server;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\event\Listener;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\command\CommandExecuter;
-use pocketmine\command\ConsoleCommandSender;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 
@@ -35,33 +32,29 @@ class main extends PluginBase implements Listener{
         if($this->blacklist->exists($name)){
 	    $this->blackip->set($name,$player->getAddress());
 	    $this->blackip->save();
-            foreach($this->getServer()->getOnlinePlayers() as $players){
-                if($players->isOp() || $this->permission->exists($players->getName())){
-                   $players->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーに参加しました。");  
+            foreach($this->getServer()->getOnlinePlayers() as $onlineplayersOP){
+                if($onlineplayersOP->isOp() || $this->permission->exists($onlineplayersOP->getName())){
+                   $onlineplayersOP->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーに参加しました。");  
                 }
             }
-	    return true;
-        }
-
-        if($player->isOp() || $this->permission->exists($player->getName())){
-            foreach($this->getServer()->getOnlinePlayers() as $players){
-                if($this->blacklist->exists($players->getName())){
-                    $player->sendMessage("§l§6<staff>§fブラックリストの §e{$players->getName()} がオンラインです。");
+        }elseif($player->isOp() || $this->permission->exists($player->getName())){
+            foreach($this->getServer()->getOnlinePlayers() as $onlineplayersBLACK){
+                if($this->blacklist->exists($onlineplayersBLACK->getName())){
+                    $player->sendMessage("§l§6<staff>§fブラックリストの §e{$onlineplayersBLAC->getName()} がオンラインです。");
                 }
             }
-	    return true;
-        }
-	    
-	foreach($this->blackip->getAll() as $key=>$value){
-		if($player->getAddress() == $value){
-			foreach($this->getServer()->getOnlinePlayers() as $players){
-				if($players->isOp() || $this->permission->exists($players->getName())){
-					$players->sendMessage("§l§6<staff>§fブラックリストの{$key}のサブ垢 §e{$name} がサーバーに参加しました。");
+        }else{
+	    foreach($this->blackip->getAll() as $blackname=>$ip){
+		if($player->getAddress() == $ip){
+			foreach($this->getServer()->getOnlinePlayers() as $onlineplayersOP){
+				if($onlineplayersOP->isOp() || $this->permission->exists($onlineplayersOP->getName())){
+					$onlineplayersOP->
+				sendMessage("§l§6<staff>§fブラックリストの{$blackname}のサブ垢 §e{$name} がサーバーに参加しました。");
 				}
 			}
 		}
+	    }
 	}
-	return true;
     }
     
     public function onPlayerQuit(PlayerQuitEvent $event){
@@ -71,13 +64,20 @@ class main extends PluginBase implements Listener{
         if($this->blacklist->exists($name)){
 	    $this->blacklasttime->set($name,$time);
 	    $this->blacklasttime->save();
-            foreach($this->getServer()->getOnlinePlayers() as $players){
-                if($players->isOp() || $this->permission->exists($players->getName())){
-                   $players->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーを退出しました。");
+            foreach($this->getServer()->getOnlinePlayers() as $onlineplayersOP){
+                if($onlineplayersOP->isOp() || $this->permission->exists($onlineplayersOP->getName())){
+                   $onlineplayersOP->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーを退出しました。");
                 }
             }
-	    return true;
-        }
+        }else{
+	    foreach($this->blackipx>getAll() as $blackname=>$ip){
+		if($player->getAddress() == $ip){
+			foreach($this->getServer()->getOnlinePlayers() as $onlineplayersOP){
+				$onlineplayersOP->sendMessage("§l§6<staff>§fブラックリストの{$blackname}のサブ垢 §e{$name} がサーバーを退出しました。");
+			}
+		}
+	    }
+	}
     }
 	
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{

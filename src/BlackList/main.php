@@ -40,8 +40,8 @@ class main extends PluginBase implements Listener{
                    $players->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーに参加しました。");  
                 }
             }
+	    return true;
         }
-	break;
 
         if($player->isOp() || $this->permission->exists($player->getName())){
             foreach($this->getServer()->getOnlinePlayers() as $players){
@@ -49,8 +49,8 @@ class main extends PluginBase implements Listener{
                     $player->sendMessage("§l§6<staff>§fブラックリストの §e{$players->getName()} がオンラインです。");
                 }
             }
+	    return true;
         }
-	break;
 	    
 	foreach($this->blackip->getAll() as $key=>$value){
 		if($player->getAddress() == $value){
@@ -61,7 +61,7 @@ class main extends PluginBase implements Listener{
 			}
 		}
 	}
-	break;
+	return true;
     }
     
     public function onPlayerQuit(PlayerQuitEvent $event){

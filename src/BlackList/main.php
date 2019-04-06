@@ -54,7 +54,7 @@ class main extends PluginBase implements Listener{
 	foreach($this->blackip->getAll() as $key=>$value){
 		if($player->getAddress() == $value){
 			foreach($this->getServer()->getOnlinePlayers() as $players){
-				if($players->isOp() || $this->permission->exists($players->getName()){
+				if($players->isOp() || $this->permission->exists($players->getName())){
 					$players->sendMessage("§l§6<staff>§fブラックリストの{$key}のサブ垢 §e{$name} がサーバーに参加しました。");
 				}
 			}

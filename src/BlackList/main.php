@@ -76,8 +76,8 @@ class main extends PluginBase implements Listener{
                    $players->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーを退出しました。");
                 }
             }
+	    return true;
         }
-	break;
     }
 	
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{

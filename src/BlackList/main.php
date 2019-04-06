@@ -70,7 +70,7 @@ class main extends PluginBase implements Listener{
                 }
             }
         }else{
-	    foreach($this->blackipx>getAll() as $blackname=>$ip){
+	    foreach($this->blackip->getAll() as $blackname=>$ip){
 		if($player->getAddress() == $ip){
 			foreach($this->getServer()->getOnlinePlayers() as $onlineplayersOP){
 				$onlineplayersOP->sendMessage("§l§6<staff>§fブラックリストの{$blackname}のサブ垢 §e{$name} がサーバーを退出しました。");

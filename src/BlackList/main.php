@@ -41,6 +41,8 @@ class main extends PluginBase implements Listener{
                 }
             }
         }
+	break;
+
         if($player->isOp() || $this->permission->exists($player->getName())){
             foreach($this->getServer()->getOnlinePlayers() as $players){
                 if($this->blacklist->exists($players->getName())){
@@ -48,6 +50,7 @@ class main extends PluginBase implements Listener{
                 }
             }
         }
+	break;
 	    
 	foreach($this->blackip->getAll() as $key=>$value){
 		if($player->getAddress() == $value){
@@ -57,7 +60,8 @@ class main extends PluginBase implements Listener{
 				}
 			}
 		}
-	}			
+	}
+	break;
     }
     
     public function onPlayerQuit(PlayerQuitEvent $event){
@@ -73,6 +77,7 @@ class main extends PluginBase implements Listener{
                 }
             }
         }
+	break;
     }
 	
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{

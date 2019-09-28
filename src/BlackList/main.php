@@ -120,7 +120,37 @@ class main extends PluginBase implements Listener{
 	                    $sender->sendMessage("§b【運営】 >>> §e {$args[1]} §aをブラックリストから削除しました。");
 	                }
 	                break;
-	                
+				    
+			case "delban":
+			foreach($this->blacklist->getAll() as $key=>$value){
+			    $swap = 0;
+	                    if($key->isBanned()){
+				    $this->blacklist->remove($key);
+				    $this->blacklist->save();
+	                            $this->blackreason->remove($key);
+				    $this->blackreason->save();
+			            $this->blacktime->remove($key);
+			            $this->blacktime->save();
+			            if($this->blacklasttime->exists($key)){
+					    $this->blacklasttime->remove($key);
+			                    $this->blacklasttime->save();
+				    }
+				    if($this->blackip->exists($key){
+					    $this->blackip->remove($key);
+					    $this->blackip->save();
+				    }
+				    
+				    $swap++;
+			    }
+				       
+			    if($swap == 0){
+				    $sender->sendMessage("§b【運営】 >>> §cブラックリストにbanされているプレイヤーはいませんでした");
+			    }else{
+				    $sender->sendMessage("§b【運営】 >>> §e{$swap}人のbanされているプレイヤーをブラックリストから削除しました");
+			    }
+	                }
+			
+	                isBanned
 	                case "list":
 	                $sender->sendMessage("§aブラックリスト");
 	                foreach($this->blacklist->getAll() as $key=>$value){

@@ -150,8 +150,7 @@ class main extends PluginBase implements Listener{
 				    $sender->sendMessage("§b【運営】 >>> §e{$swap}人のbanされているプレイヤーをブラックリストから削除しました");
 			    }
 	                }
-			
-	                isBanned
+				    
 	                case "list":
 	                $sender->sendMessage("§aブラックリスト");
 	                foreach($this->blacklist->getAll() as $key=>$value){

@@ -144,13 +144,14 @@ class main extends PluginBase implements Listener{
 				    
 				    $swap++;
 			    }
-				       
-			    if($swap == 0){
-				    $sender->sendMessage("§b【運営】 >>> §cブラックリストにbanされているプレイヤーはいませんでした");
-			    }else{
-				    $sender->sendMessage("§b【運営】 >>> §e{$swap}人のbanされているプレイヤーをブラックリストから削除しました");
-			    }
 	                }
+				    
+		        if($swap == 0){
+				$sender->sendMessage("§b【運営】 >>> §cブラックリストにbanされているプレイヤーはいませんでした");
+			}else{
+				$sender->sendMessage("§b【運営】 >>> §e{$swap}人のbanされているプレイヤーをブラックリストから削除しました");
+		        }
+		        break;
 				    
 	                case "list":
 	                $sender->sendMessage("§aブラックリスト");

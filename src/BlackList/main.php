@@ -76,6 +76,7 @@ class main extends PluginBase implements Listener{
 	            $sender->sendMessage("/black check <name>");
 	            $sender->sendMessage("/black add <name> <reason>");
 	            $sender->sendMessage("/black del <name>");
+		    $sender->sendMessage("/black delban");
 	            $sender->sendMessage("/black permission");
 	        }else{
 	            switch($args[0]){
@@ -135,7 +136,7 @@ class main extends PluginBase implements Listener{
 					    $this->blacklasttime->remove($key);
 			                    $this->blacklasttime->save();
 				    }
-				    if($this->blackip->exists($key){
+				    if($this->blackip->exists($key)){
 					    $this->blackip->remove($key);
 					    $this->blackip->save();
 				    }
@@ -239,6 +240,7 @@ class main extends PluginBase implements Listener{
 	                $sender->sendMessage("/black check <name>");
 	                $sender->sendMessage("/black add <name> <reason>");
 	                $sender->sendMessage("/black del <name>");
+		        $sender->sendMessage("/black delban");
 	                $sender->sendMessage("/black permission");
 	                break;
 	            }

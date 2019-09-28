@@ -4,6 +4,7 @@ namespace BlackList;
 
 use pocketmine\Server;
 use pocketmine\Player;
+use pocketmine\OfflinePlayer;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\event\Listener;
@@ -125,7 +126,7 @@ class main extends PluginBase implements Listener{
 			case "delban":
 			foreach($this->blacklist->getAll() as $key=>$value){
 			    $swap = 0;
-	                    if($key->isBanned()){
+	                    if($this->getServer()->getOfflinePlayer($key)->isBanned()){
 				    $this->blacklist->remove($key);
 				    $this->blacklist->save();
 	                            $this->blackreason->remove($key);

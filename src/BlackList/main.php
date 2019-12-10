@@ -67,7 +67,7 @@ class main extends PluginBase implements Listener{
         }
 	
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
-	    if(!$sender->isOp() || !$this->permission->exists($sender->getName())){
+	    if(!$sender->isOp() || !$sender->isOp() && !$this->permission->exists($sender->getName())){
 	        $sender->sendMessage("§cコマンドを実行する権限がありません");
 	    }else{
 	    switch($command->getName()){

@@ -59,7 +59,7 @@ class main extends PluginBase implements Listener{
 	    $this->blacklasttime->set($name,$time);
 	    $this->blacklasttime->save();
             foreach($this->getServer()->getOnlinePlayers() as $players){
-                if($players->isOp() || $this->permission->exists($players->getName())){
+                
                    $players->sendMessage("§l§6<staff>§fブラックリストの §e{$name} がサーバーを退出しました。");
                 }
             }
@@ -68,6 +68,9 @@ class main extends PluginBase implements Listener{
     }
 	
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
+	    if(!$sender->isOp() || !$this->permission->exists($sender->getName())){
+	        $sender->sendMessage("§cコマンドを実行する権限がありません");
+	    }else{
 	    switch($command->getName()){
 	        case "black":
 	        if(!$sender instanceof Player){
@@ -249,5 +252,6 @@ class main extends PluginBase implements Listener{
 	        break;
 	    }
 	    return true;
+	}
 	}
 }

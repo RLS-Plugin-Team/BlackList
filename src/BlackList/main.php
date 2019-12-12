@@ -65,6 +65,7 @@ class main extends PluginBase implements Listener{
             }
             return true;
         }
+     }
 	
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 	    if(!$sender->isOp() || !$sender->isOp() and !$this->permission->exists($sender->getName())){
